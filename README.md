@@ -74,10 +74,9 @@ User=root
 [Install]
 WantedBy=multi-user.target
 ```
-Setup service:
+Enable service:
 
 ```
-sudo cp app.service /etc/systemd/system/
 sudo systemctl enable app.service
 sudo systemctl start app.service
 ```
