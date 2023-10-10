@@ -1,2 +1,120 @@
-# GKtwoScreen
-Management app for GKtwo 3D resin printer addons (or basically any 3D printer).
+# About
+Management app for GKtwo 3D resin printer addons (or basically any 3D printer). I've created it just for fun to have some on-screen functions for my addons like endstop detecting finished print, WS2812x LEDs, camera preview and, in the future, auto resin refill system. It is build with PyQt5.
+
+# Hardware used
+- Raspberry Pi Zero W
+- Wavechare 11303 7" 1024x600 touchscreen
+- WK625 endstop switch
+- WS2812 LED RGB ring 66mm diameter
+- OdSeven Camera HD OV5647 5Mpx (Raspberry Pi Camera Rev 1.3)
+- microSD card (32GB should be more than enough)
+- some wires
+- not necessary - Argon POD as rpi case (it can make wifi connection weaker, I had to use additional antenna)
+
+# Initial preparations
+
+You'll have to install some lightweight non-desktop system like Raspbian OS Lite (non desktop) and be able to SSH to it. If you'd like to do any development I highly recommend installing on your PC Visual Studio Code for Python development and WinSCP for faster file management.
+
+Quality of life thing to start with - set static IP for your RPI:
+
+```
+sudo nano /etc/dhcpcd.conf
+
+Add (your value instead of X):
+
+interface eth0
+static ip_address=192.168.1.X/24
+static routers=192.168.1.1
+static domain_name_servers=192.168.1.1
+
+interface wlan0
+static ip_address=192.168.0.X/24
+static routers=192.168.1.1
+static domain_name_servers=192.168.1.1
+```
+
+Enable camera:
+
+```
+sudo raspi-config
+Interface Options -> Legacy Camera
+sudo reboot
+```
+
+For Waveshare 11303 preparation follow: https://www.waveshare.com/wiki/7inch_HDMI_LCD_%28C%29
+For any other screen follow your own documentation. **Screen should be 1024x600, there can be some graphical bugs with any other screen size**.
+
+Clone repository:
+
+```
+git clone https://github.com/Doodys/GKtwoScreen
+```
+
+Prepare service:
+
+```
+sudo apt-get update
+sudo apt-get install libmtdev1
+sudo nano /etc/systemd/system/app.service
+```
+
+Fill `app.service` with:
+
+```
+[Unit]
+Description=GKtwoScreen
+
+[Service]
+ExecStart=/bin/bash -c "exec /usr/bin/startx /usr/bin/python3 /home/pi/GKtwoScreen/app.py"
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Install PyQt5:
+
+```
+sudo apt-get install python3-pyqt5
+```
+
+Install XServer to run service on raspberry pi:
+
+```
+sudo apt-get install xserver-xorg xinit
+```
+
+Open Xwrapper.config:
+
+```
+sudo nano /etc/X11/Xwrapper.config
+```
+
+Paste in there values:
+
+```
+needs_root_rights=yes
+allowed_users=anybody
+```
+
+Install any missing python3 libraries like:
+
+```
+sudo pip3 install rpi_ws281x
+sudo pip3 install RPi.GPIO
+```
+
+Reload daemon and service:
+
+```
+sudo systemctl daemon-reload
+sudo systemctl restart app.service
+```
+
+
+
+
+
+
+
