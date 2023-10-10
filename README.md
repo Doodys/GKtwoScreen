@@ -1,7 +1,9 @@
 # About
+
 Management app for GKtwo 3D resin printer addons (or basically any 3D printer). I've created it just for fun to have some on-screen functions for my addons like endstop detecting finished print, WS2812x LEDs, camera preview and, in the future, auto resin refill system. It is build with PyQt5.
 
 # Hardware used
+
 - Raspberry Pi Zero W
 - Wavechare 11303 7" 1024x600 touchscreen
 - WK625 endstop switch
@@ -112,7 +114,38 @@ sudo systemctl daemon-reload
 sudo systemctl restart app.service
 ```
 
+# Ini file
 
+I've tried to make my app configurable, like using `printer.cfg` in `Klipper`. There's file called `gktwoscreen.ini` containing whole app configuration. **Every section is needed**. My example:
+
+```
+[screen]
+WIDTH = 1024
+HEIGHT = 600
+
+[leds]
+LED_COUNT = 24
+LED_PIN = 18
+LED_FREQ_HZ = 800000
+LED_DMA = 10
+LED_BRIGHTNESS = 255
+LED_INVERT = False
+LED_CHANNEL = 0
+
+[camera]
+PRESENT = True
+RES_WIDTH = 1024
+RES_HEIGHT = 600
+
+[endstop]
+PIN = 17
+PRINT_FINISHED_TIME = 3
+
+[widget]
+WIDTH = 482
+HEIGHT = 245
+STATUS_BAR_HEIGHT = 35
+```
 
 
 
