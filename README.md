@@ -147,6 +147,12 @@ HEIGHT = 245
 STATUS_BAR_HEIGHT = 35
 ```
 
+- In `screen` you can setup your screen resolution.
+- In `leds` stick with the example values, just edit `LED_COUNT` and `LED_PIN` according to your setup.
+- In `camera` you can setup camera resolution and flag if camera is even present in your setup. `PRESENT` **does not work for now**.
+- In `endstop` you can change `PIN` where switch is connected and timeout after which status will be changed from `PRINTING` to `FINISHED` (just to make sure that endstop is not triggered because of retraction during very high prints and not buildplate going to max Z position after finished printing).
+- In `widget` you can play with UI. If your screen is something else than 1024x600 you can try to adjust those values to your needs. Widget is every one of the four parts in the UI. `WIDTH` and `HEIGHT` are widget's main size values and `STATUS_BAR_HEIGHT` is widget's title label height.
+
 
 
 
