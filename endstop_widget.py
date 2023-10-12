@@ -3,6 +3,10 @@ from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import QTimer
 import RPi.GPIO as GPIO
 import config
+import status_proxy_service
+import logging
+
+logging.basicConfig(filename=config.system_config.HOME_DIR + 'app.log', level=logging.DEBUG)
 
 class EndstopWidget(QWidget, QtWidgets.QSizePolicy):
 
@@ -14,7 +18,6 @@ class EndstopWidget(QWidget, QtWidgets.QSizePolicy):
         self.initUI(sizePolicy)
 
     def initUI(self, sizePolicy):
-
         self.setSizePolicy(sizePolicy)
         self.setMinimumSize(QtCore.QSize(0, 0))
         self.setBaseSize(QtCore.QSize(config.widget_config.WIDTH, config.widget_config.HEIGHT))
@@ -79,6 +82,7 @@ class EndstopWidget(QWidget, QtWidgets.QSizePolicy):
             self.endstop_label.setText('IDLE')
             self.endstop_label.setStyleSheet("background-color: rgb(219,50, 80);")
             self.finished = False
+
         self.is_printing = not self.is_printing
 
     def check_if_finished(self):
@@ -96,3 +100,10 @@ class EndstopWidget(QWidget, QtWidgets.QSizePolicy):
                 self.is_printing = False
             else:
                 self.finished = False
+
+        status_proxy_service.update_status(self.endstop_label.text())
+        self.execute_set_print_status_from_web = status_proxy_service.get_printing_state()
+
+        if self.execute_set_print_status_from_web:
+            self.set_print_status()
+            status_proxy_service.set_printing_state(False)

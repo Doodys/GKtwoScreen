@@ -17,6 +17,9 @@ class EndstopConfig:
 class WidgetConfig:
     pass
 
+class SystemConfig:
+    pass
+
 thisfolder = os.path.dirname(os.path.abspath(__file__))
 initfile = os.path.join(thisfolder, 'gktwoscreen.ini')
 config = configparser.RawConfigParser()
@@ -48,3 +51,7 @@ widget_config = WidgetConfig()
 widget_config.WIDTH = config.getint('widget', 'WIDTH')
 widget_config.HEIGHT = config.getint('widget', 'HEIGHT')
 widget_config.STATUS_BAR_HEIGHT = config.getint('widget', 'STATUS_BAR_HEIGHT')
+
+system_config = SystemConfig()
+system_config.HOME_DIR = config.get('system', 'HOME_DIR')
+system_config.LOCAL_IP = config.get('system', 'LOCAL_IP')

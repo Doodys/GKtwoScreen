@@ -2,13 +2,14 @@ import sys
 from PyQt5.QtWidgets import QApplication, QFrame
 from PyQt5.QtCore import Qt
 from rpi_ws281x import *
+from PyQt5 import QtCore, QtGui, QtWidgets
 import logging
 import config
 import resin_widget
 import endstop_widget
 import led_widget
 import camera_widget
-from PyQt5 import QtCore, QtGui, QtWidgets
+import status_proxy_service
 
 logging.basicConfig(filename='app.log', level=logging.DEBUG)
 
@@ -146,6 +147,7 @@ class Ui_MainWindow(object):
         self.led_widget.orange.setText(_translate("MainWindow", "Orange"))
 
 if __name__ == '__main__':
+    status_proxy_service.update_status('IDLE')
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     QApplication.setOverrideCursor(Qt.BlankCursor)

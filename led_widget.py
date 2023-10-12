@@ -5,10 +5,16 @@ from rpi_ws281x import *
 import config
 import sys
 
+strip = PixelStrip(config.leds_config.LED_COUNT, config.leds_config.LED_PIN, config.leds_config.LED_FREQ_HZ, config.leds_config.LED_DMA, config.leds_config.LED_INVERT, config.leds_config.LED_BRIGHTNESS, config.leds_config.LED_CHANNEL)
+strip.begin()
+
+def changeLedColor(color):
+    for i in range(strip.numPixels()):
+        strip.setPixelColor(i, Color(color[0], color[1], color[2]))
+    strip.show()
+
 class LedWidget(QWidget, QtWidgets.QSizePolicy):
     color_selected = pyqtSignal(tuple)
-    strip = PixelStrip(config.leds_config.LED_COUNT, config.leds_config.LED_PIN, config.leds_config.LED_FREQ_HZ, config.leds_config.LED_DMA, config.leds_config.LED_INVERT, config.leds_config.LED_BRIGHTNESS, config.leds_config.LED_CHANNEL)
-    strip.begin()
 
     def __init__(self, sizePolicy):
         super().__init__() 
@@ -17,6 +23,7 @@ class LedWidget(QWidget, QtWidgets.QSizePolicy):
     def initUI(self, sizePolicy):
 
         self.setSizePolicy(sizePolicy)
+
         self.setMinimumSize(QtCore.QSize(0, 0))
         self.setBaseSize(QtCore.QSize(config.widget_config.WIDTH, config.widget_config.HEIGHT))
         self.setObjectName("led_widget")
@@ -97,9 +104,11 @@ class LedWidget(QWidget, QtWidgets.QSizePolicy):
         self.orange.setObjectName("orange")
         self.orange.clicked.connect(lambda: self.color_selected.emit((255, 165, 0)))
 
-        self.color_selected.connect(self.changeLedColor)
+        self.color_selected.connect(changeLedColor)
 
-    def changeLedColor(self, color):
-        for i in range(self.strip.numPixels()):
-            self.strip.setPixelColor(i, Color(color[0], color[1], color[2]))
-        self.strip.show()
+class WebLedWidget():
+
+    def __init__(self, color):
+        super().__init__() 
+        changeLedColor(strip, color)
+        

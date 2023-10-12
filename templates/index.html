@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GKtwoScreen</title>
+    <link href="../static/assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="../static/assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="../static/assets/css/basic.css" rel="stylesheet" />
+    <link href="../static/assets/css/custom.css" rel="stylesheet" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">GKtwoScreen</a>
+            </div>
+
+            <div class="header-right">
+                <div style="margin: 5px;" class="btn-group">
+                    <button data-toggle="dropdown" class="btn btn-danger dropdown-toggle"><span class="caret"></span> Actions</button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Restart GKtwoScreen app service</a></li>
+                        <li><a href="#">Restart GKtwoScreen web service</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Reboot host</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- /. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                    <li>
+                        <div class="user-img-div">
+                            <img src="../static/assets/img/uni_logo.png" class="img-thumbnail" />
+                        </div>
+                    </li>
+                    <li>
+                        <a class="active-menu" href="index.html"><i class="fa fa-dashboard "></i>Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-upload "></i>Files</span></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-desktop  "></i>Camera</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-plug "></i>Contact</a>  
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-flash "></i>About</a>  
+                    </li>
+                </ul>
+
+            </div>
+
+        </nav>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper">
+            <div id="page-inner">
+                <!-- /. ROW  -->
+                <div class="row">
+                    <div class="col-md-4 col-sm-4">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                PRINTING STATUS
+                            </div>
+                            <div class="panel-body">
+                                <p>
+                                    <div class="alert alert-danger" style="text-align: center;" id="toggleElementIdle">
+                                        <a href="#" class="alert-link" >IDLE</a>
+                                    </div>
+                                    <div class="alert alert-info" style="text-align: center;" id="toggleElementPrinting">
+                                        <a href="#" class="alert-link" >PRINTING...</a>
+                                    </div>
+                                    <div class="alert alert-success" style="text-align: center;" id="toggleElementSuccess">
+                                        <a href="#" class="alert-link" >FINISHED</a>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn btn-lg btn-primary" onclick="togglePrintStatus()" style="width: 74%; margin-left: 13%; background-color: #58a1e0">Toggle printing/idle</button>
+                                    </div>
+                                </p>
+                            </hr>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                LED PANEL
+                            </div>
+                            <div class="panel-body">
+                                <p>
+                                    <button type="button" class="btn btn-lg btn-primary" onclick="triggerBlue()" style="width: 32%; margin-left: 1%; background-color: #3071a9">Blue</button>
+                                    <button type="button" class="btn btn-lg btn-primary" onclick="triggerRed()" style="width: 32%; background-color: #c22727">Red</button>
+                                    <button type="button" class="btn btn-lg btn-primary" onclick="triggerGreen()" style="width: 32%; background-color: #30c243">Green</button>
+                                </p>
+                            </hr>
+                                <p>
+                                    <button type="button" class="btn btn-lg btn-primary" onclick="triggerCyan()" style="width: 32%; margin-left: 1%; background-color: #37edfa">Cyan</button>
+                                    <button type="button" class="btn btn-lg btn-primary" onclick="triggerMagenta()" style="width: 32%; background-color: #ec2ee3">Magenta</button>
+                                    <button type="button" class="btn btn-lg btn-primary" onclick="triggerYellow()" style="width: 32%; background-color: #e0d318">Yellow</button>
+                                </p>
+                            </hr>
+                                <p>
+                                    <button type="button" class="btn btn-lg btn-primary" onclick="triggerOrange()" style="width: 32%; margin-left: 1%; background-color: #fdad00">Orange</button>
+                                    <button type="button" class="btn btn-lg btn-primary" onclick="triggerWhite()" style="width: 32%; background-color: #ffffff; border-color: #8a8a8a; color: #202020">White</button>
+                                    <button type="button" class="btn btn-lg btn-primary" onclick="triggerOff()" style="width: 32%; background-color: #8a8a8a">Off</button>
+                                </p>
+                            </hr>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                CAMERA
+                            </div>
+                            <div class="panel-body">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-4">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                RESIN STATUS
+                            </div>
+                            <div class="panel-body">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /. PAGE INNER  -->
+        </div>
+        <!-- /. PAGE WRAPPER  -->
+    </div>
+    <!-- /. WRAPPER  -->
+
+    <div id="footer-sec">
+        &copy; 2023 Let's Dudys | Created By : <a href="https://github.com/Doodys/GKtwoScreen/" target="_blank">Michał Dudys</a>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+    <script src="../static/../static/assets/js/jquery-1.10.2.js"></script>
+    <script src="../static/assets/js/bootstrap.js"></script>
+    <script src="../static/assets/js/jquery.metisMenu.js"></script>
+    <script src="../static/assets/js/custom.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        var socket = io();
+        console.log('Domain:', document.domain);
+        console.log('Port:', location.port);
+        console.log(socket);
+
+        socket.emit('connect_to_host');
+
+        setInterval(function() {
+            socket.emit('request_status');
+        }, 1000);
+
+        socket.on('update_visibility', function(msg) {
+            console.log('Status Message:', msg);
+            var elementIdle = document.getElementById('toggleElementIdle');
+            elementIdle.style.display = msg.status == 'IDLE' ? 'block' : 'none';
+
+            var elementPrinting = document.getElementById('toggleElementPrinting');
+            elementPrinting.style.display = msg.status == 'PRINTING...' ? 'block' : 'none';
+
+            var elementSuccess = document.getElementById('toggleElementSuccess');
+            elementSuccess.style.display = msg.status == 'FINISHED' ? 'block' : 'none';
+        });
+    </script>
+    <script>
+        function togglePrintStatus() {
+            fetch('/toggle_print_status');
+        }
+        function triggerBlue() {
+            fetch('/trigger_blue');
+        }
+        function triggerRed() {
+            fetch('/trigger_red');
+        }
+        function triggerGreen() {
+            fetch('/trigger_green');
+        }
+        function triggerCyan() {
+            fetch('/trigger_cyan');
+        }
+        function triggerMagenta() {
+            fetch('/trigger_magenta');
+        }
+        function triggerYellow() {
+            fetch('/trigger_yellow');
+        }
+        function triggerOrange() {
+            fetch('/trigger_orange');
+        }
+        function triggerWhite() {
+            fetch('/trigger_white');
+        }
+        function triggerOff() {
+            fetch('/trigger_off');
+        }
+    </script>
+
+</body>
+</html>
