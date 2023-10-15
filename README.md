@@ -164,6 +164,12 @@ STATUS_BAR_HEIGHT = 35
 ```
 allow_unsafe_werkzeug=True
 sudo pip3 install kombu
+git clone https://github.com/jacksonliam/mjpg-streamer.git
+cd mjpg-streamer/mjpg-streamer-experimental
+make
+sudo make install
+sudo apt-get install python3-pyqt5.qtmultimedia
+sudo apt-get install libqt5multimediawidgets5 libqt5multimedia5-plugins libqt5multimedia5
 ```
 
 

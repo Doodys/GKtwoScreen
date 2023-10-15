@@ -8,10 +8,9 @@ import config
 import resin_widget
 import endstop_widget
 import led_widget
-import camera_widget
 import status_proxy_service
 
-logging.basicConfig(filename='app.log', level=logging.DEBUG)
+logging.basicConfig(filename=config.system_config.HOME_DIR + 'app.log', level=logging.DEBUG)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -87,24 +86,7 @@ class Ui_MainWindow(object):
         self.led_widget.setObjectName("led_widget")
         self.led_widget.setParent(self.led_widget_frame)
 
-        self.gridLayout.addWidget(self.led_widget_frame, 2, 0, 1, 1)
-
-        # camera_widget
-        self.camera_widget_frame = QFrame()
-        self.camera_widget_frame.setFrameStyle(QFrame.StyledPanel | QFrame.Sunken)
-        self.camera_widget_frame.setStyleSheet("background-color: rgb(136, 139, 184);")
-
-        self.camera_widget = camera_widget.CameraWidget(sizePolicy)
-        sizePolicy.setHeightForWidth(self.camera_widget.sizePolicy().hasHeightForWidth())
-
-        self.camera_widget.setEnabled(True)
-        self.camera_widget.setSizePolicy(sizePolicy)
-        self.camera_widget.setMinimumSize(QtCore.QSize(0, 0))
-        self.camera_widget.setBaseSize(QtCore.QSize(config.widget_config.WIDTH, config.widget_config.HEIGHT))
-        self.camera_widget.setObjectName("led_widget")
-        self.camera_widget.setParent(self.camera_widget_frame)
-
-        self.gridLayout.addWidget(self.camera_widget_frame, 0, 2, 1, 1)
+        self.gridLayout.addWidget(self.led_widget_frame, 0, 2, 1, 1)
 
         # resin_widget
 
@@ -122,7 +104,7 @@ class Ui_MainWindow(object):
         self.resin_widget.setObjectName("led_widget")
         self.resin_widget.setParent(self.resin_widget_frame)
 
-        self.gridLayout.addWidget(self.resin_widget_frame, 2, 2, 1, 1)
+        self.gridLayout.addWidget(self.resin_widget_frame, 2, 0, 1, 3)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -133,8 +115,6 @@ class Ui_MainWindow(object):
         self.resin_widget.label.setText(_translate("MainWindow", "RESIN STATUS"))
         self.endstop_widget.status_label.setText(_translate("MainWindow", "ENDSTOP STATUS"))
         self.endstop_widget.printStarted.setText(_translate("MainWindow", "Print Started/Set Idle"))
-        self.camera_widget.camer_label.setText(_translate("MainWindow", "CAMERA"))
-        self.camera_widget.camera_button.setText(_translate("MainWindow", "Toggle"))
         self.led_widget.led_label.setText(_translate("MainWindow", "LED STATE"))
         self.led_widget.blue.setText(_translate("MainWindow", "Blue"))
         self.led_widget.red.setText(_translate("MainWindow", "Red"))
@@ -147,7 +127,6 @@ class Ui_MainWindow(object):
         self.led_widget.orange.setText(_translate("MainWindow", "Orange"))
 
 if __name__ == '__main__':
-    status_proxy_service.update_status('IDLE')
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     QApplication.setOverrideCursor(Qt.BlankCursor)

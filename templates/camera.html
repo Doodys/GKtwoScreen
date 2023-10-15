@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GKtwoScreen - camera</title>
+    <link href="../static/assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="../static/assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="../static/assets/css/basic.css" rel="stylesheet" />
+    <link href="../static/assets/css/custom.css" rel="stylesheet" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">GKtwoScreen</a>
+            </div>
+
+            <div class="header-right">
+                <div style="margin: 5px;" class="btn-group">
+                    <button data-toggle="dropdown" class="btn btn-danger dropdown-toggle"><span class="caret"></span> Actions</button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Restart web</a></li>
+                        <li><a href="#">Restart screen</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Reboot host</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- /. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                    <li>
+                        <div class="user-img-div">
+                            <img src="../static/assets/img/uni_logo.png" class="img-thumbnail" />
+                        </div>
+                    </li>
+                    <li>
+                        <a href="/"><i class="fa fa-dashboard "></i>Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-upload "></i>Files</span></a>
+                    </li>
+                    <li>
+                        <a class="active-menu"><i class="fa fa-desktop  "></i>Camera</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-plug "></i>Contact</a>  
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-flash "></i>About</a>  
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div id="page-wrapper">
+            <div id="page-inner">
+                <img src="/video_feed" alt="Video Feed" style="width: 100%; height: 100%;">
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-sec">
+        &copy; 2023 Let's Dudys | Created By : <a href="https://github.com/Doodys/GKtwoScreen/" target="_blank">Michał Dudys</a>
+    </div>
+
+</body> 
+</html>

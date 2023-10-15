@@ -21,7 +21,7 @@ class ResinWidget(QWidget, QtWidgets.QSizePolicy):
         font.setPointSize(12)
 
         self.label = QtWidgets.QLabel(self)
-        self.label.setGeometry(QtCore.QRect(0, 0, (config.widget_config.WIDTH - 3), config.widget_config.STATUS_BAR_HEIGHT))
+        self.label.setGeometry(QtCore.QRect(0, 0, (config.widget_config.WIDTH * 2), config.widget_config.STATUS_BAR_HEIGHT))
         self.label.setFont(font)
         self.label.setCursor(QtGui.QCursor(QtCore.Qt.BlankCursor))
         self.label.setStyleSheet("background-color: rgb(34, 118, 181); color: black;")

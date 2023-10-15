@@ -1,9 +1,8 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect
 from flask_socketio import SocketIO
 import config
 import led_widget
 import logging
-import app
 import status_proxy_service
 
 logging.basicConfig(filename=config.system_config.HOME_DIR + 'app.log', level=logging.DEBUG)
@@ -79,6 +78,19 @@ def update_status():
     if last_status != status:
         last_status = status
         socketio.emit('update_visibility', {'status': status})
+
+@socketio.on('request_starting_status')
+def update_status():
+    status = status_proxy_service.get_status()
+    socketio.emit('update_visibility', {'status': status})
+
+@appFlask.route('/video_feed')
+def video_feed():
+    return redirect('http://' + config.system_config.LOCAL_IP + ':8080/?action=stream', code=302)
+
+@appFlask.route('/cameraPreview')
+def generate_homepage():
+    return render_template('camera.html')
 
 if __name__ == '__main__':
     socketio.run(appFlask, host=config.system_config.LOCAL_IP, port=5000, allow_unsafe_werkzeug=True)

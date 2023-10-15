@@ -27,8 +27,8 @@
                 <div style="margin: 5px;" class="btn-group">
                     <button data-toggle="dropdown" class="btn btn-danger dropdown-toggle"><span class="caret"></span> Actions</button>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Restart GKtwoScreen app service</a></li>
-                        <li><a href="#">Restart GKtwoScreen web service</a></li>
+                        <li><a href="#">Restart web</a></li>
+                        <li><a href="#">Restart screen</a></li>
                         <li class="divider"></li>
                         <li><a href="#">Reboot host</a></li>
                     </ul>
@@ -46,13 +46,13 @@
                         </div>
                     </li>
                     <li>
-                        <a class="active-menu" href="index.html"><i class="fa fa-dashboard "></i>Dashboard</a>
+                        <a class="active-menu"><i class="fa fa-dashboard "></i>Dashboard</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-upload "></i>Files</span></a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-desktop  "></i>Camera</a>
+                        <a href="/cameraPreview"><i class="fa fa-desktop  "></i>Camera</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-plug "></i>Contact</a>  
@@ -127,7 +127,7 @@
                                 CAMERA
                             </div>
                             <div class="panel-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+                                <img src="/video_feed" alt="Video Feed" style="width: 100%; height: 100%;">
                             </div>
                         </div>
                     </div>
@@ -167,6 +167,7 @@
         console.log(socket);
 
         socket.emit('connect_to_host');
+        socket.emit('request_starting_status');
 
         setInterval(function() {
             socket.emit('request_status');
