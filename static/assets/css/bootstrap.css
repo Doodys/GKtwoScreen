@@ -2847,6 +2847,44 @@ fieldset[disabled] .btn-primary.active {
   color: #428bca;
   background-color: #fff;
 }
+.btn-refresh {
+  color: #fff;
+  background-color: #3d3939;
+}
+.btn-refresh:hover,
+.btn-refresh:focus,
+.btn-refresh:active,
+.btn-refresh.active,
+.open > .dropdown-toggle.btn-refresh {
+  color: #fff;
+  background-color: #505050;
+}
+.btn-refresh:active,
+.btn-refresh.active,
+.open > .dropdown-toggle.btn-refresh {
+  background-image: none;
+}
+.btn-refresh.disabled,
+.btn-refresh[disabled],
+fieldset[disabled] .btn-refresh,
+.btn-refresh.disabled:hover,
+.btn-refresh[disabled]:hover,
+fieldset[disabled] .btn-refresh:hover,
+.btn-refresh.disabled:focus,
+.btn-refresh[disabled]:focus,
+fieldset[disabled] .btn-refresh:focus,
+.btn-refresh.disabled:active,
+.btn-refresh[disabled]:active,
+fieldset[disabled] .btn-refresh:active,
+.btn-refresh.disabled.active,
+.btn-refresh[disabled].active,
+fieldset[disabled] .btn-refresh.active {
+  background-color: #3d3939;
+}
+.btn-refresh .badge {
+  color: #3d3939;
+  background-color: #fff;
+}
 .btn-success {
   color: #fff;
   background-color: #5cb85c;

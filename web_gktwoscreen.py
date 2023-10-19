@@ -1,4 +1,5 @@
-from flask import Flask, render_template, redirect
+import os
+from flask import Flask, render_template, redirect, jsonify
 from flask_socketio import SocketIO
 import config
 import led_widget
@@ -89,8 +90,17 @@ def video_feed():
     return redirect('http://' + config.system_config.LOCAL_IP + ':8080/?action=stream', code=302)
 
 @appFlask.route('/cameraPreview')
-def generate_homepage():
+def generate_camera_preview():
     return render_template('camera.html')
+
+@appFlask.route('/filesPreview')
+def generate_files_preview():
+    return render_template('files.html')
+
+@appFlask.route('/get-file-list')
+def get_file_list():
+    files = [f for f in os.listdir(config.system_config.HOME_DIR) if os.path.splitext(f)[1] in ['.ini', '.log']]
+    return jsonify(files=files)
 
 if __name__ == '__main__':
     socketio.run(appFlask, host=config.system_config.LOCAL_IP, port=5000, allow_unsafe_werkzeug=True)

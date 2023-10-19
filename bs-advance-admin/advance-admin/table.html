@@ -372,7 +372,7 @@
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
-                                <table class="table table-hover">
+                                <table class="table table-hover" id="file-table">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -477,16 +477,27 @@
         &copy; 2014 YourCompany | Design By : <a href="http://www.binarytheme.com/" target="_blank">BinaryTheme.com</a>
     </div>
     <!-- /. FOOTER  -->
-    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
-    <!-- JQUERY SCRIPTS -->
-    <script src="assets/js/jquery-1.10.2.js"></script>
-    <!-- BOOTSTRAP SCRIPTS -->
-    <script src="assets/js/bootstrap.js"></script>
-     <!-- METISMENU SCRIPTS -->
-    <script src="assets/js/jquery.metisMenu.js"></script>
-    <!-- CUSTOM SCRIPTS -->
-    <script src="assets/js/custom.js"></script>
 
+    <script src="../static/assets/js/jquery-1.10.2.js"></script>
+    <script src="../static/assets/js/bootstrap.js"></script>
+    <script src="../static/assets/js/jquery.metisMenu.js"></script>
+    <script src="../static/assets/js/custom.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        window.onload = function() {
+            fetch('/get-file-list')
+            .then(response => response.json())
+            .then(data => {
+                let table = document.getElementById('file-table');
+                data.files.forEach((file, index) => {
+                    let row = table.insertRow();
+                    let cell1 = row.insertCell(0);
+                    let cell2 = row.insertCell(1);
+                    cell1.innerHTML = index + 1;
+                    cell2.innerHTML = file;
+                });
+            });
+        };
+    </script>
 
 </body>
 </html>

@@ -10,7 +10,6 @@ file_path = config.system_config.HOME_DIR + 'statusProxy.json'
 
 def update_status(new_status):
     with lock:
-        logging.log(logging.INFO, f"File path: {file_path}")
         with open(file_path, 'r') as f:
             data = json.load(f)
         data['endstop_status'] = new_status
