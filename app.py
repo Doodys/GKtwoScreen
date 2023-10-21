@@ -127,6 +127,7 @@ class Ui_MainWindow(object):
         self.led_widget.orange.setText(_translate("MainWindow", "Orange"))
 
 if __name__ == '__main__':
+    status_proxy_service.check_and_init_status_proxy()
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     QApplication.setOverrideCursor(Qt.BlankCursor)

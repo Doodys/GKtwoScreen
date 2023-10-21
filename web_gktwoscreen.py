@@ -1,10 +1,11 @@
 import os
-from flask import Flask, render_template, redirect, jsonify
+from flask import Flask, render_template, redirect, jsonify, request, send_from_directory
 from flask_socketio import SocketIO
 import config
 import led_widget
 import logging
 import status_proxy_service
+import subprocess
 
 logging.basicConfig(filename=config.system_config.HOME_DIR + 'app.log', level=logging.DEBUG)
 last_status: str = None
@@ -99,8 +100,35 @@ def generate_files_preview():
 
 @appFlask.route('/get-file-list')
 def get_file_list():
-    files = [f for f in os.listdir(config.system_config.HOME_DIR) if os.path.splitext(f)[1] in ['.ini', '.log']]
+    files = [f for f in os.listdir(config.system_config.HOME_DIR) if os.path.splitext(f)[1] in ['.ini', '.log', '.json']]
     return jsonify(files=files)
 
+@appFlask.route('/get-file-content')
+def get_file_content():
+    file_name = request.args.get('file')
+    return send_from_directory(config.system_config.HOME_DIR, file_name)
+
+@appFlask.route('/save-file', methods=['POST'])
+def save_file():
+    data = request.get_json()
+    content = data['content']
+    logging.log(logging.INFO, content)
+    file_name = data['filename']
+    file_path = os.path.join(config.system_config.HOME_DIR, file_name)
+    with open(file_path, 'w') as file:
+        file.write(content)
+    return jsonify(success=True), 200
+
+@appFlask.route('/file-editor')
+def render_file_editor_preview():
+    file_name = request.args.get('file')
+    return render_template('fileEditor.html', file_name=file_name)
+
+
 if __name__ == '__main__':
+    status_proxy_service.check_and_init_status_proxy()
+
+    if config.camera_config.PRESENT:
+        subprocess.run(["sudo", "systemctl", "start", "camera.service"])
+
     socketio.run(appFlask, host=config.system_config.LOCAL_IP, port=5000, allow_unsafe_werkzeug=True)

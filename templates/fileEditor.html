@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GKtwoScreen - file editor</title>
+    <link href="../static/assets/css/bootstrap.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/04014d0d70.js" crossorigin="anonymous"></script>
+    <link href="../static/assets/css/basic.css" rel="stylesheet" />
+    <link href="../static/assets/css/custom.css" rel="stylesheet" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+    <header style="background-color: rgb(39, 40, 34); display: flex; justify-content: space-between; align-items: center; height: 5vh;">
+        <div id="fileName" style="font-size: 18px; color: whitesmoke; padding: 30px 0 30px 30px;"></div>
+            <div style="padding: 30px 30px 30px 0;">
+            <a class="btn btn-refresh" title="Save" onclick="saveFile()" style="padding: 15px 15px; font-size: 20px;"><i class="fa-regular fa-floppy-disk" style="color: #ffffff;"></i></a>
+            <a class="btn btn-refresh" title="Go back" onclick="goBack()" style="padding: 15px 15px; font-size: 20px;"><i class="fa-regular fa-circle-xmark" style="color: #ffffff;"></i></a>
+        </div>
+    </header>
+    <div id="editor" style="height: 95vh; width: 100vw;">
+        <button id="save-button" onclick="saveFile()">Save</button>
+    </div>
+    <div id="footer-sec">
+        &copy; 2023 Let's Dudys | Created By : <a href="https://github.com/Doodys/GKtwoScreen/" target="_blank">Michał Dudys</a>
+    </div>
+
+    <script type="text/javascript" charset="utf-8">
+        var currentFileName = '';
+        const urlParams = new URLSearchParams(window.location.search);
+        const fileName = urlParams.get('file');
+        document.getElementById('fileName').textContent = fileName;
+
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/monokai");
+        editor.setOptions({
+            fontSize: "12pt"
+        });
+
+        function loadFile(fileName) {
+            currentFileName = fileName;
+
+            var mode;
+            if(fileName.endsWith('.js')) {
+                mode = "ace/mode/javascript";
+            } else if(fileName.endsWith('.json')) {
+                mode = "ace/mode/json";
+            } else if(fileName.endsWith('.ini')) {
+                mode = "ace/mode/ini";
+            } else if(fileName.endsWith('.log')) {
+                mode = "ace/mode/text";
+            } else if(fileName.endsWith('.txt')) {
+                mode = "ace/mode/text";
+            } else if(fileName.endsWith('.py')) {
+                mode = "ace/mode/python";
+            } else {
+                mode = "ace/mode/text";  // default to text mode if file extension is not recognized
+            }
+
+            editor.session.setMode(mode);
+
+            console.log("Current file name from load:" + currentFileName)
+            fetch('/get-file-content?file=' + fileName)
+                .then(response => response.text())
+                .then(data => {
+                editor.setValue(data);
+                })
+                .catch(error => {
+                console.error('Error fetching file content:', error);
+                });
+        }
+
+        function saveFile() {
+            console.log("Current file name from save:" + currentFileName)
+            const content = editor.getValue();
+            console.log("Content from save:" + content)
+            const filename = currentFileName;
+            console.log("Jsonified content:" + JSON.stringify({filename: filename, content: content}))
+            fetch('/save-file', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({filename: filename, content: content}),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    alert('File saved successfully');
+                    window.location.href = '/filesPreview';
+                } else {
+                    alert('Error saving file');
+                }
+            });
+        }
+
+        function goBack(){
+            window.location.href = '/filesPreview';
+        }
+
+        loadFile(fileName);
+    </script>
+</body>
+</html>
